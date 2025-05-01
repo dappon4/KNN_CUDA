@@ -31,12 +31,12 @@ std::vector<at::Tensor> knn(
     int dim = ref.size(0);
     int ref_nb = ref.size(1);
     int query_nb = query.size(1);
-    float * ref_dev = ref.data<float>();
-    float * query_dev = query.data<float>();
+    float * ref_dev = ref.data_ptr<float>();
+    float * query_dev = query.data_ptr<float>();
     auto dist = at::empty({ref_nb, query_nb}, query.options().dtype(at::kFloat));
     auto ind = at::empty({k, query_nb}, query.options().dtype(at::kLong));
-    float * dist_dev = dist.data<float>();
-    long * ind_dev = ind.data<long>();
+    float * dist_dev = dist.data_ptr<float>();
+    long * ind_dev = ind.data_ptr<long>();
     
     cudaStream_t stream = at::cuda::getCurrentCUDAStream();
 
